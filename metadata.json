@@ -1,0 +1,8 @@
+{
+  "name": "Velmora Home Spa Sanctuary",
+  "description": "Book luxury on-demand home spa and wellness rituals with licensed therapists, tailored aromatherapy, and seamless secure payment checkout.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
