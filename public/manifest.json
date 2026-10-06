@@ -1,0 +1,26 @@
+{
+  "id": "/",
+  "name": "Velmora Home Spa Sanctuary",
+  "short_name": "Velmora Spa",
+  "description": "Book luxury on-demand home spa rituals with licensed therapists and integrated secure checkout in Spain and India.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#FAF7F5",
+  "theme_color": "#FAF7F5",
+  "icons": [
+    {
+      "src": "/src/assets/images/velmora_brand_logo_1791270423323.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/src/assets/images/velmora_brand_logo_1791270423323.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

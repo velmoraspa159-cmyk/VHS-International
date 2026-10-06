@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useSpa } from '../context/SpaContext';
 import { VelmoraLogo } from './VelmoraLogo';
-import { OFFICIAL_PHONE, getWhatsAppUrl } from '../utils/contact';
 import { 
-  Search, Calendar, Heart, User, LogIn, Menu, X, 
-  Sparkles, ExternalLink, ShieldCheck, Building2, MessageCircle 
+  Search, Calendar, User, LogIn, Menu, X, 
+  Building2, Sparkles, Handshake 
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -33,8 +32,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   const { currentUser, isLoggedIn, bookings } = useSpa();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const activeBooking = bookings.find(b => b.status === 'en_route' || b.status === 'confirmed');
-
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#EAE3DE] transition-colors">
       
@@ -53,7 +50,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <VelmoraLogo size="md" />
         </a>
 
-        {/* Center: Clean Simple Navigation Links (Why Choose Us removed) */}
+        {/* Center: Clean Simple Navigation Links */}
         <nav className="hidden lg:flex items-center gap-7 text-xs uppercase tracking-wider font-medium text-[#4A5550]">
           <a
             href="#"
@@ -90,21 +87,25 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <span>Partner With Us</span>
           </button>
-          <button
-            onClick={() => onOpenProfile('history')}
-            className="hover:text-[#964B59] transition-colors cursor-pointer flex items-center gap-1"
-          >
-            <Calendar className="w-3.5 h-3.5 text-[#964B59]" />
-            <span>My Bookings</span>
-            {bookings.length > 0 && (
-              <span className="font-mono text-[11px] text-[#964B59] font-bold">
-                ({bookings.length})
-              </span>
-            )}
-          </button>
+
+          {/* My Bookings */}
+          {isLoggedIn && (
+            <button
+              onClick={() => onOpenProfile('history')}
+              className="hover:text-[#964B59] transition-colors cursor-pointer flex items-center gap-1 font-semibold text-[#8E4A56]"
+            >
+              <Calendar className="w-3.5 h-3.5 text-[#964B59]" />
+              <span>My Bookings</span>
+              {bookings.length > 0 && (
+                <span className="font-mono text-[11px] text-[#964B59] font-bold">
+                  ({bookings.length})
+                </span>
+              )}
+            </button>
+          )}
         </nav>
 
-        {/* Right: Iconic Discount Pill, Search, Auth, and Primary CTA */}
+        {/* Right: Discount Trigger, Search, Auth, and Primary CTA */}
         <div className="flex items-center gap-2.5 sm:gap-3">
           {/* Iconic Minimalist Aroma Discount Trigger */}
           {onOpenDiscount && (
@@ -122,7 +123,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onSearchClick}
             aria-label="Search rituals"
-            className="p-2 text-[#4A5550] hover:text-[#964B59] rounded-full hover:bg-[#FAF7F5] transition-colors cursor-pointer"
+            className="p-2 text-[#4A5550] hover:text-[#964B59] rounded-full hover:bg-neutral-100 transition-colors cursor-pointer"
           >
             <Search className="w-4 h-4" />
           </button>
@@ -131,7 +132,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {isLoggedIn ? (
             <button
               onClick={() => onOpenProfile('profile')}
-              className="inline-flex items-center gap-2 p-1.5 sm:px-3 sm:py-2 text-xs font-medium text-[#1F2421] hover:bg-[#FAF7F5] rounded-full transition-colors border border-[#E5E0D6] cursor-pointer"
+              className="inline-flex items-center gap-2 p-1.5 sm:px-3 sm:py-2 text-xs font-medium text-[#1F2421] hover:bg-neutral-100 rounded-full transition-colors border border-[#E5E0D6] cursor-pointer"
               title="Open Account Profile"
             >
               {currentUser?.avatarUrl ? (
@@ -205,26 +206,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             Services & Rituals
           </button>
-          <button
-            onClick={() => { setMobileMenuOpen(false); onOpenPartner(); }}
-            className="block w-full text-left py-2 text-xs uppercase font-semibold text-[#964B59]"
-          >
-            Partner With Us (Join Form)
-          </button>
-          <button
-            onClick={() => { setMobileMenuOpen(false); onOpenProfile('history'); }}
-            className="block w-full text-left py-2 text-xs uppercase font-medium text-[#4A5550]"
-          >
-            My Bookings ({bookings.length})
-          </button>
 
-          {onOpenDiscount && (
+          {/* My Bookings: ONLY VISIBLE AFTER SIGN UP / SIGN IN */}
+          {isLoggedIn && (
             <button
-              onClick={() => { setMobileMenuOpen(false); onOpenDiscount(); }}
-              className="w-full py-2.5 bg-[#FAF4F5] border border-[#F0D5DA] text-[#8E4A56] text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5"
+              onClick={() => { setMobileMenuOpen(false); onOpenProfile('history'); }}
+              className="block w-full text-left py-2 text-xs uppercase font-semibold text-[#8E4A56]"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#B76E79]" />
-              <span>Claim 20% Vedic Aroma Voucher</span>
+              My Bookings ({bookings.length})
             </button>
           )}
 
@@ -257,4 +246,3 @@ export const Navbar: React.FC<NavbarProps> = ({
     </header>
   );
 };
-

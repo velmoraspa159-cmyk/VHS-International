@@ -64,14 +64,14 @@ export const TestimonialsSection: React.FC = () => {
             <button
               onClick={handlePrev}
               aria-label="Previous reviews"
-              className="w-10 h-10 rounded-full border border-[#DDD7CD] flex items-center justify-center text-[#1F2421] hover:bg-[#FAF7F5] transition-colors cursor-pointer"
+              className="w-10 h-10 rounded-full border border-[#DDD7CD] flex items-center justify-center text-[#1F2421] hover:bg-neutral-100 transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
             </button>
             <button
               onClick={handleNext}
               aria-label="Next reviews"
-              className="w-10 h-10 rounded-full border border-[#DDD7CD] flex items-center justify-center text-[#1F2421] hover:bg-[#FAF7F5] transition-colors cursor-pointer"
+              className="w-10 h-10 rounded-full border border-[#DDD7CD] flex items-center justify-center text-[#1F2421] hover:bg-neutral-100 transition-colors cursor-pointer"
             >
               <ArrowRight className="w-4 h-4" />
             </button>

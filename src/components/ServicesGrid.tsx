@@ -121,7 +121,7 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onBookService, onVie
               >
                 <div>
                   {/* Photo Container with circular icon badge in bottom-left */}
-                  <div className="relative aspect-4/3 w-full bg-[#FAF7F5] overflow-hidden">
+                  <div className="relative aspect-4/3 w-full bg-white overflow-hidden">
                     <img
                       src={item.image}
                       alt={item.title}

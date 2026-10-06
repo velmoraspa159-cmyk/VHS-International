@@ -11,7 +11,7 @@ export const TherapistSection: React.FC<TherapistSectionProps> = ({ onBookWithTh
   const { therapists, currentUser, toggleFavoriteTherapist } = useSpa();
 
   return (
-    <section id="therapists" className="py-16 sm:py-20 bg-[#F4F1EA]/60 border-y border-[#E5E0D6]">
+    <section id="therapists" className="py-16 sm:py-20 bg-white border-y border-[#EAE3DE]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}

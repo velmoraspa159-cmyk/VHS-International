@@ -13,7 +13,7 @@ export const Hero: React.FC<HeroProps> = ({ onStartBooking, onWatchStory }) => {
   const HERO_IMAGE_WOMAN = '/src/assets/images/hero_woman_spa_relaxation_1791267269523.jpg';
 
   return (
-    <section className="relative pt-6 pb-12 sm:pb-16 lg:pt-10 lg:pb-20 overflow-hidden bg-[#FAF7F5]">
+    <section className="relative pt-6 pb-12 sm:pb-16 lg:pt-10 lg:pb-20 overflow-hidden bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main 2-Column Grid matching reference image.png */}
@@ -112,7 +112,7 @@ export const Hero: React.FC<HeroProps> = ({ onStartBooking, onWatchStory }) => {
 
           {/* Right Column: Hero Photograph with "Good Skin Happier You ♡" handwritten tag */}
           <div className="lg:col-span-6 relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-xl border border-[#EAE3DE] bg-[#EFECE6] aspect-16/10 sm:aspect-4/3 lg:aspect-16/11">
+            <div className="relative rounded-3xl overflow-hidden shadow-xl border border-[#EAE3DE] bg-white aspect-16/10 sm:aspect-4/3 lg:aspect-16/11">
               <img
                 src={HERO_IMAGE_WOMAN}
                 alt="Woman enjoying serene spa relaxation"

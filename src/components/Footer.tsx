@@ -1,9 +1,11 @@
 import React from 'react';
+import { useSpa } from '../context/SpaContext';
 import { VelmoraLogo } from './VelmoraLogo';
 import { OFFICIAL_PHONE, getWhatsAppUrl } from '../utils/contact';
 import { 
   Instagram, Facebook, Youtube, Linkedin, MapPin, 
-  Phone, Mail, Clock, Heart, ExternalLink, MessageCircle, Building2 
+  Phone, Mail, Clock, ExternalLink, MessageCircle, Building2,
+  Sparkles, ArrowRight, HeartHandshake, Calendar
 } from 'lucide-react';
 
 interface FooterProps {
@@ -13,6 +15,7 @@ interface FooterProps {
   onOpenStory: () => void;
   onNavigateToSection: (sectionId: string) => void;
   onNavigateToCorporate: () => void;
+  onOpenDiscount?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -21,12 +24,70 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenPartner,
   onOpenStory,
   onNavigateToSection,
-  onNavigateToCorporate
+  onNavigateToCorporate,
+  onOpenDiscount
 }) => {
+  const { isLoggedIn, bookings } = useSpa();
+
   return (
-    <footer className="bg-white text-[#4A5550] pt-16 pb-12 border-t border-[#EAE3DE]">
+    <footer className="bg-white text-[#4A5550] pt-14 pb-20 md:pb-12 border-t border-[#EAE3DE]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
+        {/* TOP SECTION: Vedic Aroma 20% Offer Banner & Partner With Us Feature Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-14">
+          
+          {/* Card 1: Vedic Aroma 20% Off Offer (Moved from header to footer) */}
+          <div className="lg:col-span-7 p-6 sm:p-7 bg-gradient-to-br from-[#FAF4F5] via-[#FFF8F6] to-[#F5ECE8] rounded-3xl border border-[#F0D5DA] shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+            <div className="space-y-1.5">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#F0D5DA] text-[10px] uppercase tracking-[0.2em] font-semibold text-[#8E4A56]">
+                <Sparkles className="w-3 h-3 text-[#B76E79]" />
+                <span>Special Sanctuary Offer</span>
+              </div>
+              <h3 className="font-serif text-xl sm:text-2xl text-[#1F2421] font-medium tracking-tight">
+                20% Off Vedic Aroma Rituals
+              </h3>
+              <p className="text-xs text-[#525E57] max-w-md leading-relaxed">
+                Claim your inaugural home spa voucher (Promo code: <strong className="font-mono text-[#8E4A56]">AROMA20</strong>) with organic therapeutic dosha oils in Spain 🇪🇸 & India 🇮🇳.
+              </p>
+            </div>
+
+            {onOpenDiscount && (
+              <button
+                onClick={onOpenDiscount}
+                className="px-5 py-3 bg-[#8E4A56] hover:bg-[#73333F] text-white text-xs font-semibold rounded-full shadow-xs transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 group self-stretch sm:self-auto justify-center"
+              >
+                <span>Claim 20% Voucher</span>
+                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+              </button>
+            )}
+          </div>
+
+          {/* Card 2: Partner With Us Feature (Moved from header to footer) */}
+          <div className="lg:col-span-5 p-6 sm:p-7 bg-[#FAF9F5] rounded-3xl border border-[#E5E0D6] shadow-2xs flex flex-col justify-between gap-4">
+            <div className="space-y-1.5">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white border border-[#DDD7CD] text-[10px] uppercase tracking-[0.16em] font-semibold text-[#2D4A3E]">
+                <HeartHandshake className="w-3 h-3 text-[#2D4A3E]" />
+                <span>Join Specialist Team</span>
+              </div>
+              <h3 className="font-serif text-xl text-[#1F2421] font-medium tracking-tight">
+                Partner With Us
+              </h3>
+              <p className="text-xs text-[#637068] leading-relaxed">
+                Licensed massage therapist or aesthetician? Earn <strong>₹2,500 – ₹5,500</strong> / session + 100% tips with flexible hours.
+              </p>
+            </div>
+
+            <button
+              onClick={onOpenPartner}
+              className="px-4 py-2.5 bg-white hover:bg-[#FAF4F5] border border-[#DDD7CD] text-[#8E4A56] text-xs font-semibold rounded-xl transition-all cursor-pointer flex items-center justify-between group"
+            >
+              <span>Submit Google Partner Form</span>
+              <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+            </button>
+          </div>
+
+        </div>
+
         {/* Main 4-Column Grid matching reference image.png */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-[#EAE3DE]">
           
@@ -108,29 +169,26 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
-                  onClick={() => onNavigateToSection('why-choose-us')}
-                  className="hover:text-[#964B59] transition-colors cursor-pointer"
-                >
-                  Why Choose Us
-                </button>
-              </li>
-              <li>
-                <button
                   onClick={onOpenPartner}
-                  className="hover:text-[#964B59] font-medium text-[#525E57] transition-colors cursor-pointer flex items-center gap-1"
+                  className="hover:text-[#964B59] font-medium text-[#8E4A56] transition-colors cursor-pointer flex items-center gap-1"
                 >
                   <span>Partner With Us</span>
                   <ExternalLink className="w-3 h-3" />
                 </button>
               </li>
-              <li>
-                <button
-                  onClick={() => onOpenProfile('history')}
-                  className="hover:text-[#964B59] transition-colors cursor-pointer"
-                >
-                  My Bookings
-                </button>
-              </li>
+
+              {/* My Bookings: ONLY VISIBLE AFTER SIGN UP / SIGN IN */}
+              {isLoggedIn && (
+                <li>
+                  <button
+                    onClick={() => onOpenProfile('history')}
+                    className="hover:text-[#964B59] transition-colors cursor-pointer text-[#8E4A56] font-semibold flex items-center gap-1"
+                  >
+                    <Calendar className="w-3.5 h-3.5" />
+                    <span>My Bookings ({bookings.length})</span>
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
 
@@ -149,7 +207,7 @@ export const Footer: React.FC<FooterProps> = ({
             </ul>
           </div>
 
-          {/* Column 4: Contact Us + Handwritten Note (lg:col-span-3) */}
+          {/* Column 4: Contact Us + International Hubs (lg:col-span-3) */}
           <div className="lg:col-span-3 space-y-4">
             <div className="font-serif text-sm font-semibold text-[#1F2421]">
               Contact Us
@@ -220,7 +278,7 @@ export const Footer: React.FC<FooterProps> = ({
               Corporate Desk
             </button>
             <span>·</span>
-            <button onClick={onOpenPartner} className="hover:text-[#964B59] transition-colors underline">
+            <button onClick={onOpenPartner} className="hover:text-[#8E4A56] font-semibold transition-colors underline">
               Partner Google Form
             </button>
           </div>

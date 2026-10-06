@@ -78,7 +78,7 @@ export const CorporateWellnessPage: React.FC<CorporateWellnessPageProps> = ({
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF7F5] text-[#1F2421] font-sans">
+    <div className="min-h-screen bg-white text-[#1F2421] font-sans">
       
       {/* Top Breadcrumb Bar */}
       <div className="bg-[#1C2C24] text-white text-xs px-4 py-2 border-b border-white/10">
@@ -273,7 +273,7 @@ export const CorporateWellnessPage: React.FC<CorporateWellnessPageProps> = ({
       </section>
 
       {/* Interactive Quotation Calculator & Request Proposal Section */}
-      <section id="calculator" className="py-16 sm:py-24 bg-[#FAF7F5] border-b border-[#EAE3DE]">
+      <section id="calculator" className="py-16 sm:py-24 bg-white border-b border-[#EAE3DE]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-2xl mx-auto mb-14">

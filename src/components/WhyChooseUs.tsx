@@ -35,14 +35,14 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onOurStoryClick }) => 
   ];
 
   return (
-    <section id="why-choose-us" className="py-16 sm:py-24 bg-[#FAF7F5] border-t border-[#EAE3DE]">
+    <section id="why-choose-us" className="py-16 sm:py-24 bg-white border-t border-[#EAE3DE]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
           {/* Left Column: Ambient Spa Lounge Photo matching image.png */}
           <div className="lg:col-span-6">
-            <div className="relative rounded-3xl overflow-hidden shadow-xl border border-[#EAE3DE] bg-[#EFECE6] aspect-4/3 lg:aspect-square">
+            <div className="relative rounded-3xl overflow-hidden shadow-xl border border-[#EAE3DE] bg-white aspect-4/3 lg:aspect-square">
               <img
                 src={LOUNGE_IMAGE}
                 alt="Velmora Spa Lounge peaceful escape"

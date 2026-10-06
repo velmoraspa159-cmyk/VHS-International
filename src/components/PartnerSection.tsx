@@ -13,7 +13,7 @@ export const PartnerSection: React.FC<PartnerSectionProps> = ({ onOpenPartnerMod
   const [showEmbeddedForm, setShowEmbeddedForm] = useState(false);
 
   return (
-    <section id="partner" className="py-16 sm:py-24 bg-[#FAF7F5] border-t border-[#EAE3DE]">
+    <section id="partner" className="py-16 sm:py-24 bg-white border-t border-[#EAE3DE]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

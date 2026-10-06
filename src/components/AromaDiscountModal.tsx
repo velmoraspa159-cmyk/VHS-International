@@ -53,7 +53,7 @@ export const AromaDiscountModal: React.FC<AromaDiscountModalProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-lg bg-[#FAF7F5] rounded-3xl overflow-hidden shadow-2xl border border-[#EAE3DE] z-10"
+            className="relative w-full max-w-lg bg-white rounded-3xl overflow-hidden shadow-2xl border border-[#EAE3DE] z-10"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Ambient Animated Aroma Steam & Botanical Mist Effect */}

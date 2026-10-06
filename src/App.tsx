@@ -142,7 +142,7 @@ function SpaAppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F5] text-[#1F2421] flex flex-col font-sans selection:bg-[#964B59] selection:text-white">
+    <div className="min-h-screen bg-white text-[#1F2421] flex flex-col font-sans selection:bg-[#964B59] selection:text-white">
       
       {/* Simple Header with Corporate link and official contact */}
       <Navbar
