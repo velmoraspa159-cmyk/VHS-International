@@ -36,46 +36,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#EAE3DE] transition-colors">
       
-      {/* Slim Top Bar matching reference image.png */}
-      <div className="bg-[#1C2C24] text-white text-[11px] px-4 py-1.5 font-medium flex items-center justify-between">
-        <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/15 px-2 py-0.5 rounded text-[10px] text-[#F3D5D8] font-semibold tracking-wide">
-              <span>🇪🇸 Spain</span>
-              <span>&</span>
-              <span>🇮🇳 India</span>
-            </span>
-            <span className="hidden md:inline text-[#B7C9BD]">Five-Star Mobile Wellness Sanctuary</span>
-            <span className="hidden lg:inline text-white/50">·</span>
-            <span className="hidden lg:inline text-white/90">Available Internationally (INR ₹)</span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <a
-              href={getWhatsAppUrl('general')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1 text-[#25D366] hover:underline"
-            >
-              <MessageCircle className="w-3 h-3 fill-current" />
-              <span>WhatsApp: {OFFICIAL_PHONE}</span>
-            </a>
-            <span className="hidden sm:inline text-white/40">|</span>
-            <button
-              onClick={onNavigateToCorporate}
-              className="text-[#D99B9B] hover:text-white transition-colors cursor-pointer font-semibold underline underline-offset-2"
-            >
-              Corporate Wellness
-            </button>
-            <span className="text-white/40">|</span>
-            <a href="tel:+919912706021" className="hover:text-[#B7C9BD] transition-colors font-mono">
-              Direct: {OFFICIAL_PHONE}
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Simple Header Row */}
+      {/* Main Simple Header Row matching reference image.png */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         
         {/* Left: Updated Authentic Velmora Logo */}
@@ -147,8 +108,20 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
         </nav>
 
-        {/* Right: Search, Auth, and Primary CTA */}
+        {/* Right: WhatsApp, Search, Auth, and Primary CTA */}
         <div className="flex items-center gap-3">
+          {/* WhatsApp Direct */}
+          <a
+            href={getWhatsAppUrl('general')}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={`Chat on WhatsApp (${OFFICIAL_PHONE})`}
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#1F2B24] hover:text-[#25D366] hover:bg-[#F2FBF5] rounded-full border border-[#DDD7CD] transition-colors cursor-pointer"
+          >
+            <MessageCircle className="w-3.5 h-3.5 text-[#25D366] fill-current" />
+            <span className="hidden xl:inline">WhatsApp</span>
+          </a>
+
           {/* Search Trigger */}
           <button
             onClick={onSearchClick}
