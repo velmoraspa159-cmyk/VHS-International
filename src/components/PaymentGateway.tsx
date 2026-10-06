@@ -14,6 +14,7 @@ interface PaymentGatewayProps {
   therapist: Therapist | 'auto';
   date: string;
   timeSlot: string;
+  initialPromoCode?: string;
   onSuccess: (paymentInfo: {
     method: 'card' | 'apple_pay' | 'google_pay' | 'bank_transfer' | 'deposit_cod';
     cardBrand?: string;
@@ -35,6 +36,7 @@ export const PaymentGateway: React.FC<PaymentGatewayProps> = ({
   therapist,
   date,
   timeSlot,
+  initialPromoCode,
   onSuccess,
   onBack
 }) => {
@@ -52,8 +54,13 @@ export const PaymentGateway: React.FC<PaymentGatewayProps> = ({
   const [customTip, setCustomTip] = useState<string>('');
 
   // Promo code
-  const [promoCodeInput, setPromoCodeInput] = useState('');
-  const [appliedPromo, setAppliedPromo] = useState<{ code: string; discount: number; type: 'percent' | 'flat' } | null>(null);
+  const [promoCodeInput, setPromoCodeInput] = useState(() => initialPromoCode || 'AROMA20');
+  const [appliedPromo, setAppliedPromo] = useState<{ code: string; discount: number; type: 'percent' | 'flat' } | null>(() => {
+    if (initialPromoCode === 'AROMA20' || initialPromoCode === 'AYURVEDA20' || !initialPromoCode) {
+      return { code: 'AROMA20', discount: 20, type: 'percent' };
+    }
+    return null;
+  });
   const [promoError, setPromoError] = useState('');
 
   // 3D Secure / Processing state
@@ -116,7 +123,10 @@ export const PaymentGateway: React.FC<PaymentGatewayProps> = ({
 
   const applyPromo = () => {
     const code = promoCodeInput.trim().toUpperCase();
-    if (code === 'VELMORA15') {
+    if (code === 'AROMA20' || code === 'AYURVEDA20') {
+      setAppliedPromo({ code, discount: 20, type: 'percent' });
+      setPromoError('');
+    } else if (code === 'VELMORA15') {
       setAppliedPromo({ code, discount: 15, type: 'percent' });
       setPromoError('');
     } else if (code === 'RELAX500') {
@@ -126,7 +136,7 @@ export const PaymentGateway: React.FC<PaymentGatewayProps> = ({
       setAppliedPromo({ code, discount: 350, type: 'flat' });
       setPromoError('');
     } else {
-      setPromoError('Invalid code. Try VELMORA15 for 15% off or RELAX500.');
+      setPromoError('Invalid code. Try AROMA20 for 20% off or VELMORA15.');
     }
   };
 

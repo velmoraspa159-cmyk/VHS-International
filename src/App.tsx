@@ -22,6 +22,7 @@ import { AuthModal } from './components/AuthModal';
 import { StoryModal } from './components/StoryModal';
 import { SearchModal } from './components/SearchModal';
 import { WhatsAppWidget } from './components/WhatsAppWidget';
+import { AromaDiscountModal } from './components/AromaDiscountModal';
 import { CorporateWellnessPage } from './pages/CorporateWellnessPage';
 import { SpaService, Therapist, Booking } from './types';
 
@@ -73,18 +74,37 @@ function SpaAppContent() {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isStoryOpen, setIsStoryOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isDiscountOpen, setIsDiscountOpen] = useState(false);
 
   // Booking selections
   const [selectedBookingForTracker, setSelectedBookingForTracker] = useState<Booking | null>(null);
   const [selectedServiceForBooking, setSelectedServiceForBooking] = useState<SpaService | null>(null);
   const [selectedTherapistIdForBooking, setSelectedTherapistIdForBooking] = useState<string | null>(null);
   const [selectedDurationForBooking, setSelectedDurationForBooking] = useState<number | null>(null);
+  const [selectedPromoCodeForBooking, setSelectedPromoCodeForBooking] = useState<string>('AROMA20');
+
+  // Gently show the Vedic Aroma Discount Modal once after 4.5 seconds for new visitors
+  useEffect(() => {
+    try {
+      const hasSeen = sessionStorage.getItem('velmora_aroma_discount_seen');
+      if (!hasSeen) {
+        const timer = setTimeout(() => {
+          setIsDiscountOpen(true);
+          sessionStorage.setItem('velmora_aroma_discount_seen', 'true');
+        }, 4500);
+        return () => clearTimeout(timer);
+      }
+    } catch {
+      // Ignore in restricted environments
+    }
+  }, []);
 
   // Handlers
-  const handleOpenBooking = (service?: SpaService, duration?: number, therapistId?: string) => {
+  const handleOpenBooking = (service?: SpaService, duration?: number, therapistId?: string, promoCode?: string) => {
     setSelectedServiceForBooking(service || services[0]);
     setSelectedDurationForBooking(duration || null);
     setSelectedTherapistIdForBooking(therapistId || null);
+    if (promoCode) setSelectedPromoCodeForBooking(promoCode);
     setIsBookingOpen(true);
   };
 
@@ -134,6 +154,7 @@ function SpaAppContent() {
         onNavigateToSection={scrollToSection}
         onNavigateToCorporate={navigateToCorporate}
         onSearchClick={() => setIsSearchOpen(true)}
+        onOpenDiscount={() => setIsDiscountOpen(true)}
       />
 
       {/* Main View: Switch between Home Page and Dedicated Corporate Wellness Page */}
@@ -217,6 +238,7 @@ function SpaAppContent() {
         initialService={selectedServiceForBooking}
         initialTherapistId={selectedTherapistIdForBooking}
         initialDuration={selectedDurationForBooking}
+        initialPromoCode={selectedPromoCodeForBooking}
         onBookingCompleted={(booking) => {
           setSelectedBookingForTracker(booking);
           setIsTrackerOpen(true);
@@ -255,6 +277,16 @@ function SpaAppContent() {
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
         onSelectService={(s) => handleOpenBooking(s)}
+      />
+
+      {/* MODAL 8: Vedic Aroma & Ayurveda Style Discount Pop-up Form */}
+      <AromaDiscountModal
+        isOpen={isDiscountOpen}
+        onClose={() => setIsDiscountOpen(false)}
+        onApplyAndBook={(promoCode) => {
+          setSelectedPromoCodeForBooking(promoCode);
+          handleOpenBooking(undefined, undefined, undefined, promoCode);
+        }}
       />
 
     </div>

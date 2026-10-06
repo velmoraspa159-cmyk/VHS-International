@@ -16,6 +16,7 @@ interface NavbarProps {
   onNavigateToSection: (sectionId: string) => void;
   onNavigateToCorporate: () => void;
   onSearchClick: () => void;
+  onOpenDiscount?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -26,7 +27,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenStory,
   onNavigateToSection,
   onNavigateToCorporate,
-  onSearchClick
+  onSearchClick,
+  onOpenDiscount
 }) => {
   const { currentUser, isLoggedIn, bookings } = useSpa();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -51,7 +53,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <VelmoraLogo size="md" />
         </a>
 
-        {/* Center: Clean Simple Navigation Links */}
+        {/* Center: Clean Simple Navigation Links (Why Choose Us removed) */}
         <nav className="hidden lg:flex items-center gap-7 text-xs uppercase tracking-wider font-medium text-[#4A5550]">
           <a
             href="#"
@@ -83,12 +85,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span>Corporate Wellness</span>
           </button>
           <button
-            onClick={() => onNavigateToSection('why-choose-us')}
-            className="hover:text-[#964B59] transition-colors cursor-pointer"
-          >
-            Why Choose Us
-          </button>
-          <button
             onClick={onOpenPartner}
             className="hover:text-[#964B59] transition-colors cursor-pointer flex items-center gap-1 font-semibold text-[#525E57]"
           >
@@ -108,19 +104,19 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
         </nav>
 
-        {/* Right: WhatsApp, Search, Auth, and Primary CTA */}
-        <div className="flex items-center gap-3">
-          {/* WhatsApp Direct */}
-          <a
-            href={getWhatsAppUrl('general')}
-            target="_blank"
-            rel="noopener noreferrer"
-            title={`Chat on WhatsApp (${OFFICIAL_PHONE})`}
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#1F2B24] hover:text-[#25D366] hover:bg-[#F2FBF5] rounded-full border border-[#DDD7CD] transition-colors cursor-pointer"
-          >
-            <MessageCircle className="w-3.5 h-3.5 text-[#25D366] fill-current" />
-            <span className="hidden xl:inline">WhatsApp</span>
-          </a>
+        {/* Right: Iconic Discount Pill, Search, Auth, and Primary CTA */}
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          {/* Iconic Minimalist Aroma Discount Trigger */}
+          {onOpenDiscount && (
+            <button
+              onClick={onOpenDiscount}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#8E4A56] hover:text-white bg-[#FAF4F5] hover:bg-[#8E4A56] rounded-full border border-[#F0D5DA] transition-all cursor-pointer shadow-2xs group"
+              title="Vedic Aroma 20% Discount Voucher"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-[#B76E79] group-hover:text-white transition-colors" />
+              <span className="font-semibold tracking-wide">20% Off</span>
+            </button>
+          )}
 
           {/* Search Trigger */}
           <button
@@ -210,12 +206,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             Services & Rituals
           </button>
           <button
-            onClick={() => { setMobileMenuOpen(false); onNavigateToSection('why-choose-us'); }}
-            className="block w-full text-left py-2 text-xs uppercase font-medium text-[#4A5550]"
-          >
-            Why Choose Us
-          </button>
-          <button
             onClick={() => { setMobileMenuOpen(false); onOpenPartner(); }}
             className="block w-full text-left py-2 text-xs uppercase font-semibold text-[#964B59]"
           >
@@ -228,17 +218,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             My Bookings ({bookings.length})
           </button>
 
-          <div className="pt-3 border-t border-[#EAE3DE] flex flex-col gap-2">
-            <a
-              href={getWhatsAppUrl('general')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-2.5 bg-[#25D366] text-white text-xs font-semibold rounded-lg text-center flex items-center justify-center gap-2"
+          {onOpenDiscount && (
+            <button
+              onClick={() => { setMobileMenuOpen(false); onOpenDiscount(); }}
+              className="w-full py-2.5 bg-[#FAF4F5] border border-[#F0D5DA] text-[#8E4A56] text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5"
             >
-              <MessageCircle className="w-4 h-4 fill-current" />
-              <span>Chat on WhatsApp ({OFFICIAL_PHONE})</span>
-            </a>
+              <Sparkles className="w-3.5 h-3.5 text-[#B76E79]" />
+              <span>Claim 20% Vedic Aroma Voucher</span>
+            </button>
+          )}
 
+          <div className="pt-3 border-t border-[#EAE3DE] flex flex-col gap-2">
             {!isLoggedIn ? (
               <button
                 onClick={() => { setMobileMenuOpen(false); onOpenAuth(); }}

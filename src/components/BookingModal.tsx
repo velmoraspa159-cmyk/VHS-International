@@ -14,6 +14,7 @@ interface BookingModalProps {
   initialService?: SpaService | null;
   initialTherapistId?: string | null;
   initialDuration?: number | null;
+  initialPromoCode?: string;
   onBookingCompleted: (booking: Booking) => void;
 }
 
@@ -23,6 +24,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   initialService,
   initialTherapistId,
   initialDuration,
+  initialPromoCode,
   onBookingCompleted
 }) => {
   const { services, therapists, currentUser, createBooking } = useSpa();
@@ -733,6 +735,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               therapist={selectedTherapist}
               date={bookingDate}
               timeSlot={bookingTimeSlot}
+              initialPromoCode={initialPromoCode}
               onSuccess={handlePaymentSuccess}
               onBack={() => setCurrentStep(3)}
             />
