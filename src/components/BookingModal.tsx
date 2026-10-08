@@ -59,6 +59,18 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   
   // Residence fields
   const primaryAddr = currentUser?.savedAddresses[0];
+  const [clientName, setClientName] = useState<string>(currentUser?.name || '');
+  const [clientEmail, setClientEmail] = useState<string>(currentUser?.email || '');
+  const [clientPhone, setClientPhone] = useState<string>(currentUser?.phone || '+91 99127 06021');
+
+  useEffect(() => {
+    if (currentUser) {
+      if (!clientName) setClientName(currentUser.name);
+      if (!clientEmail) setClientEmail(currentUser.email);
+      if (!clientPhone) setClientPhone(currentUser.phone);
+    }
+  }, [currentUser]);
+
   const [selectedCountry, setSelectedCountry] = useState<'ES' | 'IN'>(() => {
     if (primaryAddr?.city?.toLowerCase().includes('spain') || primaryAddr?.city?.toLowerCase().includes('barcelona') || primaryAddr?.city?.toLowerCase().includes('madrid')) {
       return 'ES';
@@ -120,10 +132,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     const assignedTherapist = typeof selectedTherapist === 'object' ? selectedTherapist : therapists[0];
 
     const newBooking = createBooking({
-      userId: currentUser?.id || 'guest',
-      customerName: currentUser?.name || 'Valued Spa Client',
-      customerEmail: currentUser?.email || 'client@velmora.com',
-      customerPhone: currentUser?.phone || '+1 (555) 382-9104',
+      userId: currentUser?.id || `usr-guest-${Date.now()}`,
+      customerName: clientName || currentUser?.name || 'Sanctuary Client',
+      customerEmail: clientEmail || currentUser?.email || 'guest@velmora.com',
+      customerPhone: clientPhone || currentUser?.phone || '+91 99127 06021',
       service: selectedService,
       selectedDuration,
       selectedPressure,
@@ -139,7 +151,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         street: streetAddress,
         suite: suiteUnit,
         city,
-        state: 'NY',
+        state: selectedCountry === 'ES' ? 'Spain' : 'Haryana',
         zip: zipCode,
         gateCode,
         roomSetup
@@ -154,7 +166,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
       promoCodeApplied: paymentInfo.promoCode,
       travelFee: 0,
       totalAmount: paymentInfo.totalAmount,
-      etaMinutes: 25
+      etaMinutes: 18
     });
 
     setConfirmedBooking(newBooking);
@@ -192,24 +204,24 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
         {/* Wizard Step Progress Tracker */}
         {currentStep < 5 && (
-          <div className="grid grid-cols-4 border-b border-[#E5E0D6] bg-white text-xs text-center font-medium">
-            <div className={`py-2 border-b-2 transition-colors ${currentStep >= 1 ? 'border-[#2D4A3E] text-[#2D4A3E]' : 'border-transparent text-[#A4AAA6]'}`}>
-              1. Treatment & Oils
+          <div className="grid grid-cols-4 border-b border-[#E5E0D6] bg-white text-[10px] sm:text-xs text-center font-medium">
+            <div className={`py-2 px-1 border-b-2 transition-colors truncate ${currentStep >= 1 ? 'border-[#2D4A3E] text-[#2D4A3E]' : 'border-transparent text-[#A4AAA6]'}`}>
+              1. Treatment
             </div>
-            <div className={`py-2 border-b-2 transition-colors ${currentStep >= 2 ? 'border-[#2D4A3E] text-[#2D4A3E]' : 'border-transparent text-[#A4AAA6]'}`}>
+            <div className={`py-2 px-1 border-b-2 transition-colors truncate ${currentStep >= 2 ? 'border-[#2D4A3E] text-[#2D4A3E]' : 'border-transparent text-[#A4AAA6]'}`}>
               2. Therapist
             </div>
-            <div className={`py-2 border-b-2 transition-colors ${currentStep >= 3 ? 'border-[#2D4A3E] text-[#2D4A3E]' : 'border-transparent text-[#A4AAA6]'}`}>
-              3. Time & Address
+            <div className={`py-2 px-1 border-b-2 transition-colors truncate ${currentStep >= 3 ? 'border-[#2D4A3E] text-[#2D4A3E]' : 'border-transparent text-[#A4AAA6]'}`}>
+              3. Schedule
             </div>
-            <div className={`py-2 border-b-2 transition-colors ${currentStep >= 4 ? 'border-[#2D4A3E] text-[#2D4A3E]' : 'border-transparent text-[#A4AAA6]'}`}>
+            <div className={`py-2 px-1 border-b-2 transition-colors truncate ${currentStep >= 4 ? 'border-[#2D4A3E] text-[#2D4A3E]' : 'border-transparent text-[#A4AAA6]'}`}>
               4. Payment
             </div>
           </div>
         )}
 
         {/* Wizard Scrollable Body */}
-        <div className="p-6 overflow-y-auto flex-1 space-y-6">
+        <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-5 sm:space-y-6">
 
           {/* STEP 1: TREATMENT & CUSTOMIZATION */}
           {currentStep === 1 && (
@@ -471,6 +483,65 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           {/* STEP 3: SCHEDULE & ADDRESS DETAILS */}
           {currentStep === 3 && (
             <div className="space-y-6">
+              {/* Client Contact Info */}
+              <div className="p-4 bg-[#FAF9F5] border border-[#E5E0D6] rounded-xl space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-[#2D4A3E]">
+                    Client Sanctuary Contact
+                  </div>
+                  {currentUser ? (
+                    <span className="text-[11px] bg-[#E8EFEA] text-[#2D4A3E] px-2 py-0.5 rounded font-medium">
+                      ✓ Logged In Member
+                    </span>
+                  ) : (
+                    <span className="text-[11px] text-[#7C8880]">
+                      Instant Guest Checkout
+                    </span>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-medium text-[#4A5550] mb-1">
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      value={clientName}
+                      onChange={(e) => setClientName(e.target.value)}
+                      placeholder="e.g. Camilla Montgomery"
+                      className="w-full text-xs bg-white border border-[#DDD7CD] rounded-md p-2 text-[#1F2421]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-medium text-[#4A5550] mb-1">
+                      Email for Receipt
+                    </label>
+                    <input
+                      type="email"
+                      value={clientEmail}
+                      onChange={(e) => setClientEmail(e.target.value)}
+                      placeholder="client@velmora.com"
+                      className="w-full text-xs bg-white border border-[#DDD7CD] rounded-md p-2 text-[#1F2421]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-medium text-[#4A5550] mb-1">
+                      Mobile for Arrival Updates
+                    </label>
+                    <input
+                      type="tel"
+                      value={clientPhone}
+                      onChange={(e) => setClientPhone(e.target.value)}
+                      placeholder="+91 99127 06021"
+                      className="w-full text-xs bg-white border border-[#DDD7CD] rounded-md p-2 text-[#1F2421]"
+                    />
+                  </div>
+                </div>
+              </div>
+
               {/* Date & Time Selection */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -812,22 +883,22 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
         {/* Wizard Footer Navigation (Steps 1 to 3) */}
         {currentStep < 4 && (
-          <div className="px-6 py-4 border-t border-[#E5E0D6] bg-[#FBFBF9] flex items-center justify-between">
+          <div className="px-3 sm:px-6 py-3 sm:py-4 border-t border-[#E5E0D6] bg-[#FBFBF9] flex items-center justify-between gap-2">
             {currentStep > 1 ? (
               <button
                 type="button"
                 onClick={() => setCurrentStep((currentStep - 1) as any)}
-                className="px-4 py-2 text-xs font-medium text-[#4A5550] hover:text-[#1F2421] flex items-center gap-1 cursor-pointer"
+                className="px-2.5 sm:px-4 py-2 text-xs font-medium text-[#4A5550] hover:text-[#1F2421] flex items-center gap-1 cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4" />
-                <span>Back</span>
+                <span className="hidden sm:inline">Back</span>
               </button>
             ) : <div />}
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
               <div className="text-right">
-                <div className="text-[10px] text-[#7C8880]">Estimated Total</div>
-                <div className="font-mono text-sm font-bold text-[#1F2421]">
+                <div className="text-[10px] text-[#7C8880]">Total</div>
+                <div className="font-mono text-xs sm:text-sm font-bold text-[#1F2421]">
                   ₹{(durationPrice + selectedAddOns.reduce((s, a) => s + a.price, 0)).toLocaleString('en-IN')}
                 </div>
               </div>
@@ -835,9 +906,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <button
                 type="button"
                 onClick={() => setCurrentStep((currentStep + 1) as any)}
-                className="px-5 py-2.5 bg-[#2D4A3E] hover:bg-[#233A31] text-white text-xs font-medium rounded-md shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+                className="px-4 sm:px-5 py-2 sm:py-2.5 bg-[#2D4A3E] hover:bg-[#233A31] active:scale-95 text-white text-xs font-medium rounded-md shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
               >
-                <span>Continue to {currentStep === 1 ? 'Therapist' : currentStep === 2 ? 'Schedule' : 'Payment'}</span>
+                <span className="hidden sm:inline">Continue to {currentStep === 1 ? 'Therapist' : currentStep === 2 ? 'Schedule' : 'Payment'}</span>
+                <span className="sm:hidden font-semibold">Next</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>

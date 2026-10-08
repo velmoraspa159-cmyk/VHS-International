@@ -7,8 +7,8 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#FAF7F5",
-  "theme_color": "#FAF7F5",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "icons": [
     {
       "src": "/src/assets/images/velmora_brand_logo_1791270423323.jpg",

@@ -10,6 +10,7 @@ interface AndroidMobileNavBarProps {
   onOpenBooking: () => void;
   onOpenProfile: (tab?: 'history' | 'profile') => void;
   onOpenAuth: () => void;
+  onOpenTracker?: () => void;
 }
 
 export const AndroidMobileNavBar: React.FC<AndroidMobileNavBarProps> = ({
@@ -19,9 +20,11 @@ export const AndroidMobileNavBar: React.FC<AndroidMobileNavBarProps> = ({
   onNavigateCorporate,
   onOpenBooking,
   onOpenProfile,
-  onOpenAuth
+  onOpenAuth,
+  onOpenTracker
 }) => {
   const { isLoggedIn, currentUser, bookings } = useSpa();
+  const enRouteBooking = bookings.find(b => b.status === 'en_route');
 
   return (
     <nav 
@@ -44,14 +47,31 @@ export const AndroidMobileNavBar: React.FC<AndroidMobileNavBarProps> = ({
           )}
         </button>
 
-        {/* 2. Services / Rituals */}
-        <button
-          onClick={onNavigateServices}
-          className="flex flex-col items-center justify-center flex-1 py-1 text-[#7C8880] hover:text-[#1F2421] transition-colors cursor-pointer"
-        >
-          <Sparkles className="w-5 h-5 mb-0.5" />
-          <span className="text-[10px] font-medium tracking-tight">Rituals</span>
-        </button>
+        {/* 2. Track / Live Radar (or Services) */}
+        {onOpenTracker ? (
+          <button
+            onClick={onOpenTracker}
+            className={`flex flex-col items-center justify-center flex-1 py-1 transition-colors cursor-pointer relative ${
+              enRouteBooking ? 'text-[#2D4A3E] font-bold' : 'text-[#7C8880] hover:text-[#1F2421]'
+            }`}
+          >
+            <Clock className={`w-5 h-5 mb-0.5 ${enRouteBooking ? 'text-[#2D4A3E] animate-pulse' : ''}`} />
+            <span className="text-[10px] font-medium tracking-tight">
+              {enRouteBooking ? 'Radar' : 'Track'}
+            </span>
+            {enRouteBooking && (
+              <span className="absolute top-1 right-2 w-2 h-2 rounded-full bg-[#34A853] animate-ping" />
+            )}
+          </button>
+        ) : (
+          <button
+            onClick={onNavigateServices}
+            className="flex flex-col items-center justify-center flex-1 py-1 text-[#7C8880] hover:text-[#1F2421] transition-colors cursor-pointer"
+          >
+            <Sparkles className="w-5 h-5 mb-0.5" />
+            <span className="text-[10px] font-medium tracking-tight">Rituals</span>
+          </button>
+        )}
 
         {/* 3. Central Prominent Elevated Action Button: Book Now */}
         <div className="flex-1 flex justify-center -mt-5">

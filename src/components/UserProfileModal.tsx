@@ -505,15 +505,13 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                             {/* Action Buttons Row */}
                             <div className="mt-4 pt-3 border-t border-[#F0EBE1] flex flex-wrap items-center justify-between gap-2">
                               <div className="flex items-center gap-2">
-                                {isActive && (
-                                  <button
-                                    onClick={() => onTrackBooking(b)}
-                                    className="px-3 py-1.5 bg-[#2D4A3E] hover:bg-[#233A31] text-[#FAF9F5] text-xs font-medium rounded-md shadow-xs transition-colors cursor-pointer flex items-center gap-1.5"
-                                  >
-                                    <Clock className="w-3.5 h-3.5" />
-                                    <span>Track Live Arrival</span>
-                                  </button>
-                                )}
+                                <button
+                                  onClick={() => onTrackBooking(b)}
+                                  className="px-3 py-1.5 bg-[#2D4A3E] hover:bg-[#233A31] text-[#FAF9F5] text-xs font-medium rounded-md shadow-xs transition-colors cursor-pointer flex items-center gap-1.5"
+                                >
+                                  <Clock className="w-3.5 h-3.5" />
+                                  <span>{isActive ? 'Track Live Arrival' : 'Track & Review Details'}</span>
+                                </button>
 
                                 {/* 1-Click Rebook button */}
                                 <button

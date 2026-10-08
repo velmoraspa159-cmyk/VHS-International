@@ -3,7 +3,7 @@ import { useSpa } from '../context/SpaContext';
 import { VelmoraLogo } from './VelmoraLogo';
 import { 
   Search, Calendar, User, LogIn, Menu, X, 
-  Building2, Sparkles, Handshake 
+  Building2, Sparkles, Clock, Navigation 
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -15,6 +15,7 @@ interface NavbarProps {
   onNavigateToSection: (sectionId: string) => void;
   onNavigateToCorporate: () => void;
   onSearchClick: () => void;
+  onOpenTracker: () => void;
   onOpenDiscount?: () => void;
 }
 
@@ -27,18 +28,22 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNavigateToSection,
   onNavigateToCorporate,
   onSearchClick,
+  onOpenTracker,
   onOpenDiscount
 }) => {
   const { currentUser, isLoggedIn, bookings } = useSpa();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Check if there is an active en-route appointment
+  const enRouteBooking = bookings.find(b => b.status === 'en_route');
+
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#EAE3DE] transition-colors">
       
-      {/* Main Simple Header Row matching reference image.png */}
+      {/* Main Simple Header Row */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         
-        {/* Left: Updated Authentic Velmora Logo */}
+        {/* Left: Authentic Velmora Logo */}
         <a
           href="#"
           onClick={(e) => {
@@ -51,7 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </a>
 
         {/* Center: Clean Simple Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-7 text-xs uppercase tracking-wider font-medium text-[#4A5550]">
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-7 text-xs uppercase tracking-wider font-medium text-[#4A5550]">
           <a
             href="#"
             onClick={(e) => {
@@ -88,7 +93,24 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span>Partner With Us</span>
           </button>
 
-          {/* My Bookings */}
+          {/* Dedicated Track Booking Link */}
+          <button
+            onClick={onOpenTracker}
+            className={`transition-colors cursor-pointer flex items-center gap-1.5 font-semibold ${
+              enRouteBooking 
+                ? 'text-[#2D4A3E] bg-[#E8EFEA] px-2.5 py-1 rounded-full' 
+                : 'text-[#4A5550] hover:text-[#964B59]'
+            }`}
+            title="Track live therapist arrival radar"
+          >
+            <Clock className={`w-3.5 h-3.5 ${enRouteBooking ? 'text-[#2D4A3E] animate-pulse' : 'text-[#964B59]'}`} />
+            <span>Track Booking</span>
+            {enRouteBooking && (
+              <span className="w-2 h-2 rounded-full bg-[#34A853] animate-ping" />
+            )}
+          </button>
+
+          {/* My Bookings (when logged in) */}
           {isLoggedIn && (
             <button
               onClick={() => onOpenProfile('history')}
@@ -106,7 +128,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </nav>
 
         {/* Right: Discount Trigger, Search, Auth, and Primary CTA */}
-        <div className="flex items-center gap-2.5 sm:gap-3">
+        <div className="flex items-center gap-2 sm:gap-2.5">
           {/* Iconic Minimalist Aroma Discount Trigger */}
           {onOpenDiscount && (
             <button
@@ -128,7 +150,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <Search className="w-4 h-4" />
           </button>
 
-          {/* User Sign In / Profile Button (Google & Mobile support) */}
+          {/* User Sign In / Profile Button */}
           {isLoggedIn ? (
             <button
               onClick={() => onOpenProfile('profile')}
@@ -160,12 +182,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           )}
 
-          {/* Primary Action matching image.png "Book an Appointment ->" */}
+          {/* Primary Action "Book an Appointment ->" */}
           <button
             onClick={onOpenBooking}
-            className="px-4 sm:px-5 py-2.5 bg-[#1F2B24] hover:bg-[#141C18] text-[#FAF9F5] text-xs font-medium rounded-full shadow-xs transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5"
+            className="px-3.5 sm:px-5 py-2.5 bg-[#1F2B24] hover:bg-[#141C18] text-[#FAF9F5] text-xs font-medium rounded-full shadow-xs transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5"
           >
-            <span>Book an Appointment</span>
+            <span>Book Now</span>
             <span className="text-sm leading-none">→</span>
           </button>
 
@@ -207,7 +229,23 @@ export const Navbar: React.FC<NavbarProps> = ({
             Services & Rituals
           </button>
 
-          {/* My Bookings: ONLY VISIBLE AFTER SIGN UP / SIGN IN */}
+          {/* Track Booking Button in Mobile Menu */}
+          <button
+            onClick={() => { setMobileMenuOpen(false); onOpenTracker(); }}
+            className="w-full text-left py-2.5 px-3 bg-[#FAF7F5] rounded-lg text-xs font-semibold text-[#2D4A3E] flex items-center justify-between"
+          >
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-[#964B59]" />
+              <span>Track Live Arrival Radar</span>
+            </div>
+            {enRouteBooking && (
+              <span className="text-[10px] bg-[#2D4A3E] text-white px-2 py-0.5 rounded-full font-mono">
+                {enRouteBooking.etaMinutes || 18}m ETA
+              </span>
+            )}
+          </button>
+
+          {/* My Bookings */}
           {isLoggedIn && (
             <button
               onClick={() => { setMobileMenuOpen(false); onOpenProfile('history'); }}
@@ -246,3 +284,4 @@ export const Navbar: React.FC<NavbarProps> = ({
     </header>
   );
 };
+

@@ -108,7 +108,7 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onBookService, onVie
         </div>
 
         {/* 6 Category Cards Grid matching reference image.png */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-6 gap-3 sm:gap-6">
           {serviceCategories.map((item) => {
             const Icon = item.icon;
             const isFav = currentUser?.favoriteServiceIds.includes(item.id);
@@ -117,7 +117,7 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onBookService, onVie
               <div
                 key={item.id}
                 onClick={() => handleCardClick(item.id)}
-                className="group flex flex-col justify-between rounded-2xl overflow-hidden bg-white border border-[#EAE3DE] hover:shadow-lg transition-all duration-300 cursor-pointer"
+                className="group flex flex-col justify-between rounded-2xl overflow-hidden bg-white border border-[#EAE3DE] hover:shadow-lg transition-all duration-300 cursor-pointer active:scale-[0.98]"
               >
                 <div>
                   {/* Photo Container with circular icon badge in bottom-left */}
@@ -130,8 +130,8 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onBookService, onVie
                     />
 
                     {/* Circular Icon Overlay in bottom-left matching image.png */}
-                    <div className="absolute bottom-2.5 left-2.5 w-9 h-9 rounded-full bg-white/95 backdrop-blur-xs flex items-center justify-center text-[#964B59] shadow-xs border border-white/60">
-                      <Icon className="w-4 h-4 stroke-[1.8]" />
+                    <div className="absolute bottom-2 left-2 sm:bottom-2.5 sm:left-2.5 w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white/95 backdrop-blur-xs flex items-center justify-center text-[#964B59] shadow-xs border border-white/60">
+                      <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[1.8]" />
                     </div>
 
                     {/* Favorite Heart */}
@@ -140,11 +140,11 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onBookService, onVie
                         e.stopPropagation();
                         toggleFavoriteService(item.id);
                       }}
-                      className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center shadow-2xs hover:bg-white transition-colors"
+                      className="absolute top-2 right-2 sm:top-2.5 sm:right-2.5 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center shadow-2xs hover:bg-white transition-colors"
                       title="Save to favorites"
                     >
                       <HeartIcon
-                        className={`w-3.5 h-3.5 ${
+                        className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${
                           isFav ? 'fill-[#964B59] text-[#964B59]' : 'text-[#8E9B93]'
                         }`}
                       />
@@ -152,24 +152,24 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onBookService, onVie
                   </div>
 
                   {/* Card Content */}
-                  <div className="p-4 space-y-2">
-                    <h3 className="font-serif text-lg font-medium text-[#1F2421] group-hover:text-[#964B59] transition-colors leading-snug">
+                  <div className="p-3 sm:p-4 space-y-1 sm:space-y-2">
+                    <h3 className="font-serif text-sm sm:text-lg font-medium text-[#1F2421] group-hover:text-[#964B59] transition-colors leading-tight">
                       {item.title}
                     </h3>
-                    <p className="text-[11px] text-[#637068] leading-relaxed line-clamp-2">
+                    <p className="text-[10px] sm:text-[11px] text-[#637068] leading-tight sm:leading-relaxed line-clamp-2">
                       {item.subtitle}
                     </p>
                   </div>
                 </div>
 
                 {/* Footer with "Learn More ->" */}
-                <div className="p-4 pt-0">
-                  <div className="pt-2.5 border-t border-[#F4EFEA] flex items-center justify-between">
-                    <span className="font-mono text-xs font-semibold text-[#1F2421]">
+                <div className="p-3 sm:p-4 pt-0">
+                  <div className="pt-2 sm:pt-2.5 border-t border-[#F4EFEA] flex items-center justify-between">
+                    <span className="font-mono text-[11px] sm:text-xs font-semibold text-[#1F2421]">
                       ₹{item.price.toLocaleString('en-IN')}
                     </span>
-                    <span className="text-[11px] font-semibold text-[#964B59] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                      <span>Learn More</span>
+                    <span className="text-[10px] sm:text-[11px] font-semibold text-[#964B59] flex items-center gap-0.5 sm:gap-1 group-hover:translate-x-1 transition-transform">
+                      <span>Book</span>
                       <span>→</span>
                     </span>
                   </div>

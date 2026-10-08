@@ -23,6 +23,9 @@ import { StoryModal } from './components/StoryModal';
 import { SearchModal } from './components/SearchModal';
 import { WhatsAppWidget } from './components/WhatsAppWidget';
 import { AromaDiscountModal } from './components/AromaDiscountModal';
+import { AndroidMobileNavBar } from './components/AndroidMobileNavBar';
+import { AndroidInstallBanner } from './components/AndroidInstallBanner';
+import { ToastNotification } from './components/ToastNotification';
 import { CorporateWellnessPage } from './pages/CorporateWellnessPage';
 import { SpaService, Therapist, Booking } from './types';
 
@@ -83,6 +86,16 @@ function SpaAppContent() {
   const [selectedDurationForBooking, setSelectedDurationForBooking] = useState<number | null>(null);
   const [selectedPromoCodeForBooking, setSelectedPromoCodeForBooking] = useState<string>('AROMA20');
 
+  // Open Tracker Handler
+  const handleOpenTracker = (booking?: Booking) => {
+    if (booking) {
+      setSelectedBookingForTracker(booking);
+    } else {
+      setSelectedBookingForTracker(activeBookingToTrack || bookings[0] || null);
+    }
+    setIsTrackerOpen(true);
+  };
+
   // Gently show the Vedic Aroma Discount Modal once after 4.5 seconds for new visitors
   useEffect(() => {
     try {
@@ -142,8 +155,14 @@ function SpaAppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#1F2421] flex flex-col font-sans selection:bg-[#964B59] selection:text-white">
+    <div className="min-h-screen bg-white text-[#1F2421] flex flex-col font-sans selection:bg-[#964B59] selection:text-white pb-20 md:pb-0">
       
+      {/* Real-time Dynamic Toast Notification */}
+      <ToastNotification />
+
+      {/* Android PWA Install Banner */}
+      <AndroidInstallBanner />
+
       {/* Simple Header with Corporate link and official contact */}
       <Navbar
         onOpenBooking={() => handleOpenBooking()}
@@ -154,6 +173,7 @@ function SpaAppContent() {
         onNavigateToSection={scrollToSection}
         onNavigateToCorporate={navigateToCorporate}
         onSearchClick={() => setIsSearchOpen(true)}
+        onOpenTracker={() => handleOpenTracker()}
         onOpenDiscount={() => setIsDiscountOpen(true)}
       />
 
@@ -169,6 +189,7 @@ function SpaAppContent() {
           <Hero
             onStartBooking={() => handleOpenBooking()}
             onWatchStory={() => setIsStoryOpen(true)}
+            onOpenTracker={() => handleOpenTracker()}
           />
 
           {/* 2. Services Section: "Spa Experiences for Mind, Body & Soul" with 6 cards */}
@@ -263,6 +284,7 @@ function SpaAppContent() {
         isOpen={isTrackerOpen}
         booking={selectedBookingForTracker || activeBookingToTrack || bookings[0]}
         onClose={() => setIsTrackerOpen(false)}
+        onRebook={(service, dur, thId) => handleOpenBooking(service, dur, thId)}
       />
 
       {/* MODAL 6: Watch Our Story Video / Heritage Modal */}
@@ -287,6 +309,18 @@ function SpaAppContent() {
           setSelectedPromoCodeForBooking(promoCode);
           handleOpenBooking(undefined, undefined, undefined, promoCode);
         }}
+      />
+
+      {/* Android Mobile Navigation Bar (Native App Navigation) */}
+      <AndroidMobileNavBar
+        currentPage={currentPage}
+        onNavigateHome={navigateToHome}
+        onNavigateServices={() => scrollToSection('services')}
+        onNavigateCorporate={navigateToCorporate}
+        onOpenBooking={() => handleOpenBooking()}
+        onOpenProfile={handleOpenProfile}
+        onOpenAuth={() => setIsAuthOpen(true)}
+        onOpenTracker={() => handleOpenTracker()}
       />
 
     </div>

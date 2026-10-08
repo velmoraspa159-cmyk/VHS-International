@@ -7,9 +7,10 @@ import {
 interface HeroProps {
   onStartBooking: () => void;
   onWatchStory: () => void;
+  onOpenTracker: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onStartBooking, onWatchStory }) => {
+export const Hero: React.FC<HeroProps> = ({ onStartBooking, onWatchStory, onOpenTracker }) => {
   const HERO_IMAGE_WOMAN = '/src/assets/images/hero_woman_spa_relaxation_1791267269523.jpg';
 
   return (
@@ -48,11 +49,11 @@ export const Hero: React.FC<HeroProps> = ({ onStartBooking, onWatchStory }) => {
               Experience world-class five-star spa therapies delivered directly to your residence across Spain (Madrid, Barcelona, Marbella) & India (Delhi NCR, Mumbai, Bengaluru).
             </p>
 
-            {/* Action Buttons Row matching image.png */}
-            <div className="flex flex-wrap items-center gap-4 pt-1">
+            {/* Action Buttons Row */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 pt-1">
               <button
                 onClick={onStartBooking}
-                className="px-6 py-3.5 bg-[#1F2B24] hover:bg-[#141C18] text-[#FAF9F5] text-xs sm:text-sm font-medium rounded-full shadow-sm transition-all cursor-pointer flex items-center gap-2 group"
+                className="w-full sm:w-auto justify-center px-6 py-3.5 bg-[#1F2B24] hover:bg-[#141C18] text-[#FAF9F5] text-xs sm:text-sm font-medium rounded-full shadow-sm transition-all cursor-pointer flex items-center gap-2 group active:scale-98"
               >
                 <span>Book an Appointment</span>
                 <span className="text-base leading-none transition-transform group-hover:translate-x-1">→</span>
@@ -60,13 +61,36 @@ export const Hero: React.FC<HeroProps> = ({ onStartBooking, onWatchStory }) => {
 
               <button
                 onClick={onWatchStory}
-                className="px-5 py-3.5 bg-white hover:bg-[#F7F4F2] text-[#1F2421] text-xs sm:text-sm font-medium rounded-full border border-[#DDD7CD] shadow-2xs transition-all cursor-pointer flex items-center gap-2.5"
+                className="w-full sm:w-auto justify-center px-5 py-3.5 bg-white hover:bg-neutral-50 text-[#1F2421] text-xs sm:text-sm font-medium rounded-full border border-[#DDD7CD] shadow-2xs transition-all cursor-pointer flex items-center gap-2.5 active:scale-98"
               >
                 <div className="w-6 h-6 rounded-full bg-[#1F2B24] text-white flex items-center justify-center text-[10px]">
                   <Play className="w-2.5 h-2.5 fill-current ml-0.5" />
                 </div>
                 <span>Watch Our Story</span>
               </button>
+            </div>
+
+            {/* Real-time Tracking Bar & Client Access */}
+            <div className="pt-1">
+              <div className="p-3 bg-[#FAF7F5] rounded-2xl border border-[#EAE3DE] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+                <div className="flex items-center gap-2.5">
+                  <span className="relative flex h-2.5 w-2.5 shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#34A853] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#34A853]"></span>
+                  </span>
+                  <div className="text-[#4A5550]">
+                    <span className="font-semibold text-[#1F2421]">Have an upcoming appointment?</span>{' '}
+                    <span>Track therapist arrival in real-time</span>
+                  </div>
+                </div>
+                <button
+                  onClick={onOpenTracker}
+                  className="px-3.5 py-1.5 bg-[#2D4A3E] hover:bg-[#233A31] text-white text-xs font-medium rounded-full shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap self-stretch sm:self-auto justify-center active:scale-95"
+                >
+                  <Clock className="w-3.5 h-3.5 text-[#C2D6C8]" />
+                  <span>Track Live Radar →</span>
+                </button>
+              </div>
             </div>
 
             {/* 4 Feature Badges matching image.png */}
