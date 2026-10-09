@@ -75,6 +75,26 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onBookService, onVie
       icon: Bath,
       price: 2799,
       duration: '75 – 120 mins'
+    },
+    {
+      id: 'serv-prenatal-nurture',
+      title: 'Maternity & Prenatal',
+      subtitle: 'Certified gentle relief for mothers-to-be.',
+      desc: 'Side-lying ergonomic cushion support, gentle hip decompression & hypoallergenic organic botanical oils.',
+      image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600&auto=format&fit=crop&q=80',
+      icon: Heart,
+      price: 2699,
+      duration: '60 – 90 mins'
+    },
+    {
+      id: 'serv-lymphatic-drainage',
+      title: 'Lymphatic & Sports',
+      subtitle: 'Rhythmic fluid flush & athletic muscle reset.',
+      desc: 'Targeted nodal clearing, metabolic waste removal, and deep relief from delayed onset muscle soreness.',
+      image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&auto=format&fit=crop&q=80',
+      icon: Leaf,
+      price: 2899,
+      duration: '60 – 90 mins'
     }
   ];
 
@@ -107,8 +127,8 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onBookService, onVie
           </button>
         </div>
 
-        {/* 6 Category Cards Grid matching reference image.png */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-6 gap-3 sm:gap-6">
+        {/* 8 Category Cards Responsive Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-6">
           {serviceCategories.map((item) => {
             const Icon = item.icon;
             const isFav = currentUser?.favoriteServiceIds.includes(item.id);

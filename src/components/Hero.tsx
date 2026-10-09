@@ -46,16 +46,16 @@ export const Hero: React.FC<HeroProps> = ({ onStartBooking, onWatchStory, onOpen
 
             {/* Subtitle */}
             <p className="text-sm sm:text-base text-[#525E57] font-normal leading-relaxed max-w-lg">
-              Experience world-class five-star spa therapies delivered directly to your residence across Spain (Madrid, Barcelona, Marbella) & India (Delhi NCR, Mumbai, Bengaluru).
+              Certified doorstep massage & luxury in-home spa rituals delivered directly to your residence across Spain (Madrid, Barcelona, Marbella) & India (Delhi NCR, Mumbai, Bengaluru). Full equipment brought to your door.
             </p>
 
             {/* Action Buttons Row */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 pt-1">
               <button
                 onClick={onStartBooking}
-                className="w-full sm:w-auto justify-center px-6 py-3.5 bg-[#1F2B24] hover:bg-[#141C18] text-[#FAF9F5] text-xs sm:text-sm font-medium rounded-full shadow-sm transition-all cursor-pointer flex items-center gap-2 group active:scale-98"
+                className="w-full sm:w-auto justify-center px-6 py-3.5 bg-[#1F2B24] hover:bg-[#141C18] text-[#FAF9F5] text-xs sm:text-sm font-medium rounded-full shadow-md transition-all cursor-pointer flex items-center gap-2 group active:scale-98"
               >
-                <span>Book an Appointment</span>
+                <span>Instant Sign Up & Book</span>
                 <span className="text-base leading-none transition-transform group-hover:translate-x-1">→</span>
               </button>
 

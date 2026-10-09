@@ -56,7 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </a>
 
         {/* Center: Clean Simple Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-7 text-xs uppercase tracking-wider font-medium text-[#4A5550]">
+        <nav className="hidden lg:flex items-center gap-5 xl:gap-6 text-xs uppercase tracking-wider font-medium text-[#4A5550]">
           <a
             href="#"
             onClick={(e) => {
@@ -68,16 +68,23 @@ export const Navbar: React.FC<NavbarProps> = ({
             Home
           </a>
           <button
-            onClick={onOpenStory}
-            className="hover:text-[#964B59] transition-colors cursor-pointer"
-          >
-            About
-          </button>
-          <button
             onClick={() => onNavigateToSection('services')}
             className="hover:text-[#964B59] transition-colors cursor-pointer"
           >
-            Services
+            Services & Rituals
+          </button>
+          <button
+            onClick={() => onNavigateToSection('wellness-journal')}
+            className="hover:text-[#964B59] transition-colors cursor-pointer flex items-center gap-1 font-semibold text-[#1F2421]"
+          >
+            <Sparkles className="w-3 h-3 text-[#964B59]" />
+            <span>Journal & Guides</span>
+          </button>
+          <button
+            onClick={() => onNavigateToSection('faqs')}
+            className="hover:text-[#964B59] transition-colors cursor-pointer"
+          >
+            FAQs
           </button>
           <button
             onClick={onNavigateToCorporate}
@@ -87,10 +94,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span>Corporate Wellness</span>
           </button>
           <button
+            onClick={onOpenStory}
+            className="hover:text-[#964B59] transition-colors cursor-pointer"
+          >
+            About
+          </button>
+          <button
             onClick={onOpenPartner}
             className="hover:text-[#964B59] transition-colors cursor-pointer flex items-center gap-1 font-semibold text-[#525E57]"
           >
-            <span>Partner With Us</span>
+            <span>Partner</span>
           </button>
         </nav>
 
@@ -182,6 +195,18 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="block w-full text-left py-2 text-xs uppercase font-medium text-[#4A5550]"
           >
             Services & Rituals
+          </button>
+          <button
+            onClick={() => { setMobileMenuOpen(false); onNavigateToSection('wellness-journal'); }}
+            className="block w-full text-left py-2 text-xs uppercase font-bold text-[#964B59] bg-[#FAF4F5] px-2 rounded"
+          >
+            Journal & Wellness Guides
+          </button>
+          <button
+            onClick={() => { setMobileMenuOpen(false); onNavigateToSection('faqs'); }}
+            className="block w-full text-left py-2 text-xs uppercase font-medium text-[#4A5550]"
+          >
+            FAQs & Questions
           </button>
 
           <div className="pt-3 border-t border-[#EAE3DE] flex flex-col gap-2">

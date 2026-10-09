@@ -206,6 +206,58 @@ export const SPA_SERVICES: SpaService[] = [
       'Organic organic sesame and argan carrier oil blend'
     ],
     intensity: 'Targeted Firm'
+  },
+  {
+    id: 'serv-prenatal-nurture',
+    title: 'Maternity & Prenatal Nurture Ritual',
+    subtitle: 'Safe side-lying ergonomics, hip decompression & certified LMT',
+    category: 'wellness',
+    description: 'A deeply nurturing, specialized therapy engineered exclusively for expectant mothers (14+ weeks). Administered by certified maternity bodyworkers using ergonomic side-lying body pillows, hypoallergenic organic seed oils, and gentle fluid drainage techniques to relieve sciatic strain and swollen ankles.',
+    basePrice: 2699,
+    durations: [
+      { minutes: 60, price: 2699, recommendedFor: 'Focused pelvic, hip & lower back relief' },
+      { minutes: 90, price: 3599, recommendedFor: 'Comprehensive full-body maternity nurturing' }
+    ],
+    rating: 4.99,
+    reviewCount: 215,
+    image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&auto=format&fit=crop&q=80',
+    benefits: [
+      'Eases painful sciatic pressure and sacroiliac ligament strain',
+      'Encourages venous and lymphatic circulation to reduce swollen ankles',
+      'Promotes deeper restorative sleep and lowers pregnancy stress hormones'
+    ],
+    equipmentBrought: [
+      'Ergonomic full-body maternity support pillow set',
+      'Fragrance-free hypoallergenic organic golden jojoba oil',
+      'Clean sanitized thermal blanket and soft ambient soundscapes'
+    ],
+    intensity: 'Gentle Relaxation'
+  },
+  {
+    id: 'serv-lymphatic-drainage',
+    title: 'Lymphatic Drainage & Athletic Recovery',
+    subtitle: 'Rhythmic nodal pumping, interstitial fluid flush & muscle reset',
+    category: 'wellness',
+    description: 'A scientifically backed therapeutic modality designed to stimulate the lymphatic system, reduce water retention, and accelerate athletic recovery after intense training or long travel. Combines feather-light rhythmic nodal pumping with restorative myofascial decompression.',
+    basePrice: 2899,
+    durations: [
+      { minutes: 60, price: 2899, recommendedFor: 'Targeted legs, abdomen & facial lymph flush' },
+      { minutes: 90, price: 3799, recommendedFor: 'Full-body lymphatic clearing and muscular reset' }
+    ],
+    rating: 4.97,
+    reviewCount: 164,
+    image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80',
+    benefits: [
+      'Flushes accumulated metabolic waste and reduces delayed onset muscle soreness (DOMS)',
+      'Sculpts body contours and eliminates stubborn fluid stagnation',
+      'Strengthens immune surveillance through active lymph fluid circulation'
+    ],
+    equipmentBrought: [
+      'Electric heated ergonomic massage bed with memory foam support',
+      'Stimulating botanical juniper and cypress botanical essences',
+      'Warm herbal compress for regional nodal activation'
+    ],
+    intensity: 'Targeted Firm'
   }
 ];
 

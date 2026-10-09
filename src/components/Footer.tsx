@@ -145,6 +145,31 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
+                  onClick={() => onNavigateToSection('services')}
+                  className="hover:text-[#964B59] transition-colors cursor-pointer"
+                >
+                  Services & Rituals
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavigateToSection('wellness-journal')}
+                  className="hover:text-[#964B59] font-medium text-[#1F2421] transition-colors cursor-pointer flex items-center gap-1"
+                >
+                  <Sparkles className="w-3 h-3 text-[#964B59]" />
+                  <span>Journal & Guides</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavigateToSection('faqs')}
+                  className="hover:text-[#964B59] transition-colors cursor-pointer"
+                >
+                  FAQs & Client Queries
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={onNavigateToCorporate}
                   className="hover:text-[#964B59] text-[#964B59] font-bold transition-colors cursor-pointer flex items-center gap-1"
                 >
@@ -156,15 +181,7 @@ export const Footer: React.FC<FooterProps> = ({
                   onClick={onOpenStory}
                   className="hover:text-[#964B59] transition-colors cursor-pointer"
                 >
-                  About
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onNavigateToSection('services')}
-                  className="hover:text-[#964B59] transition-colors cursor-pointer"
-                >
-                  Services
+                  About Our Story
                 </button>
               </li>
               <li>

@@ -27,7 +27,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   initialPromoCode,
   onBookingCompleted
 }) => {
-  const { services, therapists, currentUser, createBooking } = useSpa();
+  const { services, therapists, currentUser, createBooking, register } = useSpa();
 
   // Wizard Step: 1 = Customization, 2 = Therapist, 3 = Schedule & Address, 4 = Secure Payment, 5 = Confirmation Receipt
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4 | 5>(1);
@@ -131,8 +131,15 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   }) => {
     const assignedTherapist = typeof selectedTherapist === 'object' ? selectedTherapist : therapists[0];
 
+    // If client is not signed in yet, seamlessly sign them up so they have an active persistent sanctuary account!
+    let effectiveUserId = currentUser?.id;
+    if (!currentUser && clientEmail) {
+      register(clientName || 'Sanctuary Client', clientEmail, clientPhone || '+91 99127 06021');
+      effectiveUserId = `usr-${Date.now()}`;
+    }
+
     const newBooking = createBooking({
-      userId: currentUser?.id || `usr-guest-${Date.now()}`,
+      userId: effectiveUserId || currentUser?.id || `usr-guest-${Date.now()}`,
       customerName: clientName || currentUser?.name || 'Sanctuary Client',
       customerEmail: clientEmail || currentUser?.email || 'guest@velmora.com',
       customerPhone: clientPhone || currentUser?.phone || '+91 99127 06021',
@@ -488,17 +495,17 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             <div className="space-y-6">
               {/* Client Contact Info */}
               <div className="p-4 bg-[#FAF9F5] border border-[#E5E0D6] rounded-xl space-y-3">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between flex-wrap gap-1">
                   <div className="text-xs font-semibold uppercase tracking-wider text-[#2D4A3E]">
-                    Client Sanctuary Contact
+                    Client Sanctuary Contact (Instant Sign Up & Book)
                   </div>
                   {currentUser ? (
                     <span className="text-[11px] bg-[#E8EFEA] text-[#2D4A3E] px-2 py-0.5 rounded font-medium">
-                      ✓ Logged In Member
+                      ✓ Logged In Member: {currentUser.name.split(' ')[0]}
                     </span>
                   ) : (
-                    <span className="text-[11px] text-[#7C8880]">
-                      Instant Guest Checkout
+                    <span className="text-[11px] bg-[#FAF4F5] text-[#964B59] font-medium px-2 py-0.5 rounded border border-[#F0D5DA]">
+                      ⚡ Auto-creates account with booking
                     </span>
                   )}
                 </div>

@@ -30,8 +30,12 @@ import { WhatsAppWidget } from './components/WhatsAppWidget';
 import { AromaDiscountModal } from './components/AromaDiscountModal';
 import { AndroidInstallBanner } from './components/AndroidInstallBanner';
 import { ToastNotification } from './components/ToastNotification';
+import { BlogSection } from './components/BlogSection';
+import { ArticleModal } from './components/ArticleModal';
+import { SeoFaqSection } from './components/SeoFaqSection';
 import { CorporateWellnessPage } from './pages/CorporateWellnessPage';
 import { SpaService, Therapist, Booking } from './types';
+import { BlogArticle } from './data/blogData';
 
 function SpaAppContent() {
   const { 
@@ -85,6 +89,20 @@ function SpaAppContent() {
   const [isStoryOpen, setIsStoryOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isDiscountOpen, setIsDiscountOpen] = useState(false);
+
+  // Article Reader Modal state
+  const [selectedArticleForModal, setSelectedArticleForModal] = useState<BlogArticle | null>(null);
+  const [isArticleModalOpen, setIsArticleModalOpen] = useState(false);
+
+  const handleReadArticle = (article: BlogArticle) => {
+    setSelectedArticleForModal(article);
+    setIsArticleModalOpen(true);
+  };
+
+  const handleBookFromArticle = (serviceId: string) => {
+    const matchService = services.find(s => s.id === serviceId) || services[0];
+    handleOpenBooking(matchService);
+  };
 
   // Booking selections
   const [selectedBookingForTracker, setSelectedBookingForTracker] = useState<Booking | null>(null);
@@ -280,18 +298,42 @@ function SpaAppContent() {
             {/* 5. What Our Guests Say: "Real People. Real Relaxation." with reviews */}
             <TestimonialsSection />
 
-            {/* 6. Partner With Us: Google Form Embed for Visiting Specialists */}
+            {/* 6. The In-Home Sanctuary Journal: SEO Traffic Magnets & Wellness Guides */}
+            <BlogSection
+              onReadArticle={handleReadArticle}
+              onBookService={handleBookFromArticle}
+            />
+
+            {/* 7. Search Intent & Client Questions: SEO Keywords Cloud & Core FAQs */}
+            <SeoFaqSection
+              onOpenBooking={() => handleOpenBooking()}
+              onKeywordClick={(keyword) => {
+                const lower = keyword.toLowerCase();
+                const matched = services.find(s => 
+                  s.title.toLowerCase().includes(lower) || 
+                  s.category.toLowerCase().includes(lower) ||
+                  (lower.includes('stone') && s.title.toLowerCase().includes('stone')) ||
+                  (lower.includes('deep') && s.title.toLowerCase().includes('deep')) ||
+                  (lower.includes('couples') && s.title.toLowerCase().includes('couples')) ||
+                  (lower.includes('prenatal') && s.title.toLowerCase().includes('prenatal')) ||
+                  (lower.includes('lymphatic') && s.title.toLowerCase().includes('lymphatic'))
+                );
+                handleOpenBooking(matched || services[0]);
+              }}
+            />
+
+            {/* 8. Partner With Us: Google Form Embed for Visiting Specialists */}
             <PartnerSection
               onOpenPartnerModal={() => setIsPartnerOpen(true)}
             />
 
-            {/* 7. Bottom CTA Banner: "Self Care is a Better Tomorrow / Book Your Relaxation Today" */}
+            {/* 9. Bottom CTA Banner: "Self Care is a Better Tomorrow / Book Your Relaxation Today" */}
             <CtaBanner
               onBookAppointment={() => handleOpenBooking()}
               onOpenGiftCards={() => handleOpenBooking(services[0], 90)}
             />
 
-            {/* 8. Footer with official helpline, hubs, and international presence */}
+            {/* 10. Footer with official helpline, hubs, and international presence */}
             <Footer
               onOpenBooking={() => handleOpenBooking()}
               onOpenProfile={handleOpenProfile}
@@ -386,6 +428,14 @@ function SpaAppContent() {
             setSelectedPromoCodeForBooking(promoCode);
             handleOpenBooking(undefined, undefined, undefined, promoCode);
           }}
+        />
+
+        {/* BOTTOM SHEET 9: Full Wellness Article Reader & Direct Linked Ritual Booking */}
+        <ArticleModal
+          article={selectedArticleForModal}
+          isOpen={isArticleModalOpen}
+          onClose={() => setIsArticleModalOpen(false)}
+          onBookService={handleBookFromArticle}
         />
 
       </div>
