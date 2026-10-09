@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { SpaProvider, useSpa } from './context/SpaContext';
-import { MobileDeviceFrame } from './components/MobileDeviceFrame';
+import { Navbar } from './components/Navbar';
 import { MobileAppHeader } from './components/MobileAppHeader';
 import { MobileDynamicIsland } from './components/MobileDynamicIsland';
 import { MobileQuickActions } from './components/MobileQuickActions';
@@ -179,63 +179,80 @@ function SpaAppContent() {
   };
 
   return (
-    <MobileDeviceFrame>
-      <div className="min-h-full bg-white text-[#1F2421] flex flex-col font-sans selection:bg-[#964B59] selection:text-white pb-20">
-        
-        {/* Real-time Dynamic Toast Notification */}
-        <ToastNotification />
+    <div className="min-h-screen bg-white text-[#1F2421] flex flex-col font-sans selection:bg-[#964B59] selection:text-white pb-20 md:pb-0">
+      
+      {/* Real-time Dynamic Toast Notification */}
+      <ToastNotification />
 
-        {/* Android PWA Install Banner */}
-        <AndroidInstallBanner />
+      {/* Android PWA Install Banner */}
+      <AndroidInstallBanner />
 
-        {/* 1. Simple, Clean & Clear Native Mobile App Header */}
+      {/* 1. Desktop & Laptop Header (Screens >= md) */}
+      <div className="hidden md:block">
+        <Navbar
+          onOpenBooking={() => handleOpenBooking()}
+          onOpenProfile={handleOpenProfile}
+          onOpenAuth={() => setIsAuthOpen(true)}
+          onOpenPartner={() => setIsPartnerOpen(true)}
+          onOpenStory={() => setIsStoryOpen(true)}
+          onNavigateToSection={scrollToSection}
+          onNavigateToCorporate={navigateToCorporate}
+          onSearchClick={() => setIsSearchOpen(true)}
+          onOpenTracker={() => handleOpenTracker()}
+          onOpenDiscount={() => setIsDiscountOpen(true)}
+        />
+      </div>
+
+      {/* 2. Mobile App Header (Screens < md) - Simple, Clean & Clear */}
+      <div className="md:hidden">
         <MobileAppHeader
           onOpenBooking={() => handleOpenBooking()}
           onOpenProfile={handleOpenProfile}
           onOpenAuth={() => setIsAuthOpen(true)}
           onSearchClick={() => setIsSearchOpen(true)}
         />
+      </div>
 
-        {/* 2. Floating Dynamic Island Widget (When Booking is Active / En Route) */}
-        <MobileDynamicIsland onOpenTracker={() => handleOpenTracker()} />
+      {/* 3. Floating Dynamic Island Widget (When Booking is Active / En Route) */}
+      <MobileDynamicIsland onOpenTracker={() => handleOpenTracker()} />
 
-        {/* 3. Native 4-Grid Quick Actions (Book Ritual, Live Radar, Corporate Wellness, Concierge WhatsApp) */}
+      {/* 4. Native 4-Grid Quick Actions (Shown on Mobile for 1-Tap App Feel) */}
+      <div className="md:hidden">
         <MobileQuickActions
           onOpenBooking={() => handleOpenBooking()}
           onOpenTracker={() => handleOpenTracker()}
           onNavigateCorporate={navigateToCorporate}
         />
+      </div>
 
-        {/* Main View: Switch between Home Feed, Rituals Catalog, and Corporate Wellness Page */}
-        {currentPage === 'corporate-wellness' ? (
-          <CorporateWellnessPage
-            onBackToHome={navigateToHome}
-            onOpenBooking={() => handleOpenBooking()}
-          />
-        ) : activeTab === 'rituals' ? (
-          /* Native Rituals Catalog View with Category Pill Slider & Instant 1-Tap Booking */
-          <main className="flex-1">
-            <div className="px-4 pt-2">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="font-serif text-2xl font-normal text-[#1F2421]">
-                    Home Spa Catalog
-                  </h2>
-                  <p className="text-xs text-[#7C8880]">
-                    Select a treatment to schedule therapist arrival
-                  </p>
-                </div>
-                <button
-                  onClick={() => setActiveTab('home')}
-                  className="text-xs text-[#964B59] font-semibold underline cursor-pointer"
-                >
-                  Back to Home
-                </button>
-              </div>
+      {/* Main View: Switch between Home Feed, Rituals Catalog, and Corporate Wellness Page */}
+      {currentPage === 'corporate-wellness' ? (
+        <CorporateWellnessPage
+          onBackToHome={navigateToHome}
+          onOpenBooking={() => handleOpenBooking()}
+        />
+      ) : activeTab === 'rituals' ? (
+        /* Native Rituals Catalog View with Category Pill Slider & Instant 1-Tap Booking */
+        <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-4">
+          <div className="flex items-center justify-between pb-3 border-b border-[#EAE3DE]">
+            <div>
+              <h2 className="font-serif text-2xl sm:text-3xl font-normal text-[#1F2421]">
+                Home Spa Catalog
+              </h2>
+              <p className="text-xs sm:text-sm text-[#7C8880]">
+                Select a treatment to schedule master therapist arrival
+              </p>
             </div>
-            <MobileTreatmentCatalog onBookService={(s) => handleOpenBooking(s)} />
-          </main>
-        ) : (
+            <button
+              onClick={() => setActiveTab('home')}
+              className="text-xs sm:text-sm text-[#964B59] font-semibold hover:underline cursor-pointer"
+            >
+              ← Back to Home
+            </button>
+          </div>
+          <MobileTreatmentCatalog onBookService={(s) => handleOpenBooking(s)} />
+        </main>
+      ) : (
           <main className="flex-1">
             {/* 1. Hero Section: "A Calmer You, A Brighter Tomorrow" with quick booking CTA & live arrival tracker */}
             <Hero
@@ -372,7 +389,6 @@ function SpaAppContent() {
         />
 
       </div>
-    </MobileDeviceFrame>
   );
 }
 

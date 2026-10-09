@@ -17,7 +17,7 @@ export const MobileDynamicIsland: React.FC<MobileDynamicIslandProps> = ({ onOpen
   const isEnRoute = activeBooking.status === 'en_route';
 
   return (
-    <div className="px-4 py-1.5 animate-in slide-in-from-top-2 duration-300">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 animate-in slide-in-from-top-2 duration-300">
       <button
         onClick={onOpenTracker}
         className="w-full bg-[#1F2B24] text-white p-2.5 rounded-2xl shadow-lg border border-white/10 flex items-center justify-between text-xs cursor-pointer active:scale-98 transition-all hover:bg-[#151E19]"

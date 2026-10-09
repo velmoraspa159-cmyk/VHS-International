@@ -40,6 +40,8 @@ export const AndroidInstallBanner: React.FC = () => {
     };
   }, []);
 
+  const [showInstruction, setShowInstruction] = useState(false);
+
   const handleInstallClick = async () => {
     if (deferredPrompt) {
       deferredPrompt.prompt();
@@ -49,8 +51,7 @@ export const AndroidInstallBanner: React.FC = () => {
       }
       setDeferredPrompt(null);
     } else {
-      // Instruct Android user
-      alert('To install on your Android device:\n1. Tap the browser menu (⋮) in the top-right corner.\n2. Tap "Install app" or "Add to Home screen".');
+      setShowInstruction(true);
     }
   };
 
@@ -98,6 +99,12 @@ export const AndroidInstallBanner: React.FC = () => {
           <p className="text-[11px] text-[#637068] mt-1 line-clamp-1">
             Install on phone for 1-tap booking & live therapist GPS radar.
           </p>
+
+          {showInstruction && (
+            <div className="mt-2 p-2 bg-[#FAF4F5] border border-[#F0D5DA] rounded-lg text-[10px] text-[#8E4A56] leading-tight">
+              Tap browser menu (<strong>⋮</strong> or Share) → <strong>Install app</strong> or <strong>Add to Home screen</strong>.
+            </div>
+          )}
 
           <div className="flex items-center gap-2 mt-2.5">
             <button

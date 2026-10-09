@@ -31,9 +31,9 @@ export const MobileTreatmentCatalog: React.FC<MobileTreatmentCatalogProps> = ({ 
   });
 
   return (
-    <div className="py-3 px-4 space-y-4 pb-24">
+    <div className="py-4 px-4 sm:px-6 lg:px-8 space-y-6 pb-24 md:pb-16 max-w-7xl mx-auto">
       {/* Category Pills Scroller */}
-      <div className="overflow-x-auto scrollbar-none -mx-4 px-4 py-1">
+      <div className="overflow-x-auto scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 py-1">
         <div className="flex items-center gap-2 min-w-max">
           {categories.map((c) => {
             const isSelected = selectedCategory === c.id;
@@ -41,7 +41,7 @@ export const MobileTreatmentCatalog: React.FC<MobileTreatmentCatalogProps> = ({ 
               <button
                 key={c.id}
                 onClick={() => setSelectedCategory(c.id)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer active:scale-95 ${
+                className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer active:scale-95 ${
                   isSelected
                     ? 'bg-[#1F2B24] text-white shadow-xs'
                     : 'bg-[#F7F4EF] text-[#525E57] hover:bg-[#EFECE6] border border-[#E5E0D6]'
@@ -54,8 +54,8 @@ export const MobileTreatmentCatalog: React.FC<MobileTreatmentCatalogProps> = ({ 
         </div>
       </div>
 
-      {/* Catalog Grid Cards */}
-      <div className="space-y-4">
+      {/* Catalog Grid Cards - 1 col on mobile, 2 col on tablet, 3 col on desktop */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filtered.map((service) => {
           const isFav = currentUser?.favoriteServiceIds.includes(service.id);
           return (
