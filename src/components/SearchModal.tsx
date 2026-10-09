@@ -27,11 +27,14 @@ export const SearchModal: React.FC<SearchModalProps> = ({
   );
 
   return (
-    <div className="fixed inset-0 z-60 flex items-start justify-center pt-20 p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-60 flex items-end sm:items-start justify-center pt-0 sm:pt-20 p-0 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
       <div 
-        className="bg-white rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl border border-[#E5E0D6] flex flex-col"
+        className="bg-white rounded-t-[32px] sm:rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl border-t sm:border border-[#E5E0D6] flex flex-col max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Mobile Drag Indicator Bar */}
+        <div className="w-12 h-1 bg-[#D5CDC5] rounded-full mx-auto mt-2.5 mb-0.5 sm:hidden shrink-0" />
+
         {/* Search Input Bar */}
         <div className="p-4 border-b border-[#EAE3DE] flex items-center gap-3 bg-[#FAF7F5]">
           <Search className="w-5 h-5 text-[#964B59] shrink-0" />

@@ -128,11 +128,14 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
   const favoriteTherapistsList = therapists.filter(t => currentUser?.favoriteTherapistIds.includes(t.id));
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
       <div 
-        className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl border border-[#E5E0D6] flex flex-col"
+        className="bg-white rounded-t-[32px] sm:rounded-2xl max-w-4xl w-full max-h-[92vh] sm:max-h-[90vh] overflow-hidden shadow-2xl border-t sm:border border-[#E5E0D6] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Mobile Drag Indicator Bar */}
+        <div className="w-12 h-1 bg-[#D5CDC5] rounded-full mx-auto mt-2.5 mb-0.5 sm:hidden shrink-0" />
+
         {/* Header Bar */}
         <div className="px-6 py-4 border-b border-[#E5E0D6] flex items-center justify-between bg-[#FBFBF9]">
           <div className="flex items-center gap-3">

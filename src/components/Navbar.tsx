@@ -92,55 +92,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <span>Partner With Us</span>
           </button>
-
-          {/* Dedicated Track Booking Link */}
-          <button
-            onClick={onOpenTracker}
-            className={`transition-colors cursor-pointer flex items-center gap-1.5 font-semibold ${
-              enRouteBooking 
-                ? 'text-[#2D4A3E] bg-[#E8EFEA] px-2.5 py-1 rounded-full' 
-                : 'text-[#4A5550] hover:text-[#964B59]'
-            }`}
-            title="Track live therapist arrival radar"
-          >
-            <Clock className={`w-3.5 h-3.5 ${enRouteBooking ? 'text-[#2D4A3E] animate-pulse' : 'text-[#964B59]'}`} />
-            <span>Track Booking</span>
-            {enRouteBooking && (
-              <span className="w-2 h-2 rounded-full bg-[#34A853] animate-ping" />
-            )}
-          </button>
-
-          {/* My Bookings (when logged in) */}
-          {isLoggedIn && (
-            <button
-              onClick={() => onOpenProfile('history')}
-              className="hover:text-[#964B59] transition-colors cursor-pointer flex items-center gap-1 font-semibold text-[#8E4A56]"
-            >
-              <Calendar className="w-3.5 h-3.5 text-[#964B59]" />
-              <span>My Bookings</span>
-              {bookings.length > 0 && (
-                <span className="font-mono text-[11px] text-[#964B59] font-bold">
-                  ({bookings.length})
-                </span>
-              )}
-            </button>
-          )}
         </nav>
 
-        {/* Right: Discount Trigger, Search, Auth, and Primary CTA */}
+        {/* Right: Search, Auth, and Primary CTA */}
         <div className="flex items-center gap-2 sm:gap-2.5">
-          {/* Iconic Minimalist Aroma Discount Trigger */}
-          {onOpenDiscount && (
-            <button
-              onClick={onOpenDiscount}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#8E4A56] hover:text-white bg-[#FAF4F5] hover:bg-[#8E4A56] rounded-full border border-[#F0D5DA] transition-all cursor-pointer shadow-2xs group"
-              title="Vedic Aroma 20% Discount Voucher"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#B76E79] group-hover:text-white transition-colors" />
-              <span className="font-semibold tracking-wide">20% Off</span>
-            </button>
-          )}
-
           {/* Search Trigger */}
           <button
             onClick={onSearchClick}
@@ -229,39 +184,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             Services & Rituals
           </button>
 
-          {/* Track Booking Button in Mobile Menu */}
-          <button
-            onClick={() => { setMobileMenuOpen(false); onOpenTracker(); }}
-            className="w-full text-left py-2.5 px-3 bg-[#FAF7F5] rounded-lg text-xs font-semibold text-[#2D4A3E] flex items-center justify-between"
-          >
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-[#964B59]" />
-              <span>Track Live Arrival Radar</span>
-            </div>
-            {enRouteBooking && (
-              <span className="text-[10px] bg-[#2D4A3E] text-white px-2 py-0.5 rounded-full font-mono">
-                {enRouteBooking.etaMinutes || 18}m ETA
-              </span>
-            )}
-          </button>
-
-          {/* My Bookings */}
-          {isLoggedIn && (
-            <button
-              onClick={() => { setMobileMenuOpen(false); onOpenProfile('history'); }}
-              className="block w-full text-left py-2 text-xs uppercase font-semibold text-[#8E4A56]"
-            >
-              My Bookings ({bookings.length})
-            </button>
-          )}
-
           <div className="pt-3 border-t border-[#EAE3DE] flex flex-col gap-2">
             {!isLoggedIn ? (
               <button
                 onClick={() => { setMobileMenuOpen(false); onOpenAuth(); }}
                 className="w-full py-2.5 bg-[#FAF4F5] text-[#964B59] text-xs font-semibold rounded-lg text-center"
               >
-                Sign In with Google or Mobile Number
+                Sign In
               </button>
             ) : (
               <button

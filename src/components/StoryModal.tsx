@@ -12,11 +12,14 @@ export const StoryModal: React.FC<StoryModalProps> = ({ isOpen, onClose, onBookN
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/70 backdrop-blur-xs animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/70 backdrop-blur-xs animate-in fade-in duration-200">
       <div 
-        className="bg-white rounded-2xl max-w-2xl w-full max-h-[92vh] overflow-hidden shadow-2xl border border-[#E5E0D6] flex flex-col"
+        className="bg-white rounded-t-[32px] sm:rounded-2xl max-w-2xl w-full max-h-[92vh] overflow-hidden shadow-2xl border-t sm:border border-[#E5E0D6] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Mobile Drag Indicator Bar */}
+        <div className="w-12 h-1 bg-[#D5CDC5] rounded-full mx-auto mt-2.5 mb-0.5 sm:hidden shrink-0" />
+
         <div className="p-5 bg-[#FAF7F5] border-b border-[#EAE3DE] flex items-center justify-between">
           <VelmoraLogo size="sm" />
           <button

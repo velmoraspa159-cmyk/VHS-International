@@ -37,7 +37,7 @@ export const AromaDiscountModal: React.FC<AromaDiscountModalProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
           {/* Backdrop with motion blur */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -49,13 +49,16 @@ export const AromaDiscountModal: React.FC<AromaDiscountModalProps> = ({
 
           {/* Modal Container */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 20 }}
+            initial={{ opacity: 0, scale: 0.95, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 15 }}
+            exit={{ opacity: 0, scale: 0.95, y: 30 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-lg bg-white rounded-3xl overflow-hidden shadow-2xl border border-[#EAE3DE] z-10"
+            className="relative w-full max-w-lg bg-white rounded-t-[32px] sm:rounded-3xl overflow-hidden shadow-2xl border-t sm:border border-[#EAE3DE] z-10 max-h-[92vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Mobile Drag Indicator Bar */}
+            <div className="w-12 h-1 bg-[#D5CDC5] rounded-full mx-auto mt-2.5 mb-0.5 sm:hidden shrink-0 z-20" />
+
             {/* Ambient Animated Aroma Steam & Botanical Mist Effect */}
             <div className="absolute top-0 left-0 right-0 h-40 overflow-hidden pointer-events-none opacity-40">
               <motion.div
